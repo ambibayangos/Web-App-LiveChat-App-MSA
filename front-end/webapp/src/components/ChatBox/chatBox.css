@@ -5,9 +5,9 @@
   position: fixed;
   top: 100px;
   right: 30px;
-  display: flex;
+  flex: 1;
 
-  background: #333333;
+  background: #333333 !important;
   border-radius: 5px;
 }
 

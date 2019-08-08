@@ -24,7 +24,12 @@ class AddVideoPanel extends Component {
           />
         </div>
         <div className="spacer" />
-        <button className="ui negative basic button">Cancel</button>
+        <button
+          className="ui negative basic button"
+          onClick={this.props.onExitClick}
+        >
+          Cancel
+        </button>
         <button
           className="ui positive basic button"
           style={{ margin: "10px  0px 0px 0px" }}

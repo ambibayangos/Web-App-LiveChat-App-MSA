@@ -34,7 +34,9 @@ class App extends Component {
     let tempVideoPanel;
     let tempBackDrop;
     if (this.state.addVideoButtonPressed) {
-      tempVideoPanel = <AddVideoPanel />;
+      tempVideoPanel = (
+        <AddVideoPanel onExitClick={this.addVideoButtonPressedHandler} />
+      );
       tempBackDrop = (
         <BackDrop onBackDropClicked={this.addVideoButtonPressedHandler} />
       );
