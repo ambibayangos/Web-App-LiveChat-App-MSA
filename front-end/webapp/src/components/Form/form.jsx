@@ -6,12 +6,14 @@ class AddVideoForm extends Component {
   state = {};
   render() {
     return (
-      <Form>
-        <Form.Field>
-          <label>{this.props.label}</label>
-          <input placeholder={this.props.placeHolder} />
-        </Form.Field>
-      </Form>
+      <div className="form">
+        <Form>
+          <Form.Field>
+            <label>{this.props.label}</label>
+            <input placeholder={this.props.placeHolder} />
+          </Form.Field>
+        </Form>
+      </div>
     );
   }
 }

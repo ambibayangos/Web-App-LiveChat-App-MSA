@@ -7,4 +7,6 @@
 
   z-index: 100;
   position: fixed;
+  top: 80px;
+  left: 0;
 }
