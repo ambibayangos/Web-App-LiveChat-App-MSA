@@ -8,17 +8,9 @@ class App extends Component {
     addVideoButtonPressed: false
   };
 
-  addVideoButtonPressedHandler = () => {
-    const tempVdeioButton = this.state.addVideoButtonPressed;
-    this.setState({ addVideoButtonPressed: !tempVdeioButton });
-  };
-
   render() {
     //toggle video panel logic
-    let tempVideoPanel;
-    if (this.state.addVideoButtonPressed) {
-      tempVideoPanel = <AddVideoPanel />;
-    }
+    let tempVideoPanel = this.renderVideoPanel();
 
     return (
       <div className="App">
@@ -28,10 +20,19 @@ class App extends Component {
     );
   }
 
+  /*Events Handlers && Helper Functions*/
+
+  addVideoButtonPressedHandler = () => {
+    const tempVdeioButton = this.state.addVideoButtonPressed;
+    this.setState({ addVideoButtonPressed: !tempVdeioButton });
+  };
+
   renderVideoPanel() {
-    {
-      renderAddVideoPanel();
+    let tempVideoPanel;
+    if (this.state.addVideoButtonPressed) {
+      tempVideoPanel = <AddVideoPanel />;
     }
+    return tempVideoPanel;
   }
 }
 
