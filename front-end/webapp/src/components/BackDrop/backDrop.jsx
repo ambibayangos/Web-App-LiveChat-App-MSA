@@ -3,7 +3,7 @@ import "./backDrop.css";
 
 class BackDrop extends Component {
   render() {
-    return <div className="backDrop" />;
+    return <div className="backDrop" onClick={this.props.onBackDropClicked} />;
   }
 }
 

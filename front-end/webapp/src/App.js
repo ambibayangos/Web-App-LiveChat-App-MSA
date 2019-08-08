@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import Header from "./components/Header/header";
 import AddVideoPanel from "./components/AddVideoPanel/addVideoPanel";
+import BackDrop from "./components/BackDrop/backDrop";
 
 class App extends Component {
   state = {
@@ -9,13 +10,13 @@ class App extends Component {
   };
 
   render() {
-    //toggle video panel logic
-    let tempVideoPanel = this.renderVideoPanel();
+    let { tempVideoPanel, tempBackDrop } = this.renderAddVideoPanel();
 
     return (
-      <div className="App">
+      <div className="App" style={{ style: "100%" }}>
         <Header onAddVideoClicked={this.addVideoButtonPressedHandler} />
         {tempVideoPanel}
+        {tempBackDrop}
       </div>
     );
   }
@@ -27,12 +28,16 @@ class App extends Component {
     this.setState({ addVideoButtonPressed: !tempVdeioButton });
   };
 
-  renderVideoPanel() {
+  renderAddVideoPanel() {
     let tempVideoPanel;
+    let tempBackDrop;
     if (this.state.addVideoButtonPressed) {
       tempVideoPanel = <AddVideoPanel />;
+      tempBackDrop = (
+        <BackDrop onBackDropClicked={this.addVideoButtonPressedHandler} />
+      );
     }
-    return tempVideoPanel;
+    return { tempVideoPanel, tempBackDrop };
   }
 }
 
