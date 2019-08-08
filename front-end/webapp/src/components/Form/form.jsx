@@ -6,7 +6,7 @@ class AddVideoForm extends Component {
   state = {};
   render() {
     return (
-      <div className="form">
+      <div>
         <Form>
           <Form.Field>
             <label>{this.props.label}</label>
