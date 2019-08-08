@@ -10,7 +10,7 @@ class Header extends Component {
       <div className="header-container">
         <Logo />
         <span className="spacer" />
-        <AddVideoButton />
+        <AddVideoButton videoButtonClicked={this.props.onAddVideoClicked} />
       </div>
     );
   }
