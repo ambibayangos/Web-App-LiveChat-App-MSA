@@ -1,0 +1,21 @@
+.chatBox {
+  height: 85%;
+  width: 400px;
+
+  position: fixed;
+  top: 100px;
+  right: 30px;
+  display: flex;
+
+  background: #333333;
+  border-radius: 5px;
+}
+
+.messageBox {
+  width: 300px;
+
+  position: fixed;
+  bottom: 0;
+  padding-bottom: 30px;
+  padding-left: 10px;
+}

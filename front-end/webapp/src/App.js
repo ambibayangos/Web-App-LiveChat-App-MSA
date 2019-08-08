@@ -3,6 +3,7 @@ import "./App.css";
 import Header from "./components/Header/header";
 import AddVideoPanel from "./components/AddVideoPanel/addVideoPanel";
 import BackDrop from "./components/BackDrop/backDrop";
+import ChatBox from "./components/ChatBox/chatBox";
 
 class App extends Component {
   state = {
@@ -15,6 +16,7 @@ class App extends Component {
     return (
       <div className="App" style={{ style: "100%" }}>
         <Header onAddVideoClicked={this.addVideoButtonPressedHandler} />
+        <ChatBox />
         {tempVideoPanel}
         {tempBackDrop}
       </div>
