@@ -1,21 +1,13 @@
 .chatBox {
   height: 85%;
-  width: 400px;
+  width: 30%;
 
-  position: fixed;
   top: 100px;
   right: 30px;
-  flex: 1;
+  position: fixed;
+  overflow-wrap: break-word;
+  padding-right: 30px;
 
   background: #333333 !important;
   border-radius: 5px;
-}
-
-.messageBox {
-  width: 300px;
-
-  position: fixed;
-  bottom: 0;
-  padding-bottom: 30px;
-  padding-left: 10px;
 }

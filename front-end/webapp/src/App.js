@@ -10,19 +10,6 @@ class App extends Component {
     addVideoButtonPressed: false
   };
 
-  render() {
-    let { tempVideoPanel, tempBackDrop } = this.renderAddVideoPanel();
-
-    return (
-      <div className="App" style={{ style: "100%" }}>
-        <Header onAddVideoClicked={this.addVideoButtonPressedHandler} />
-        <ChatBox />
-        {tempVideoPanel}
-        {tempBackDrop}
-      </div>
-    );
-  }
-
   /*Events Handlers && Helper Functions*/
 
   addVideoButtonPressedHandler = () => {
@@ -42,6 +29,19 @@ class App extends Component {
       );
     }
     return { tempVideoPanel, tempBackDrop };
+  }
+
+  render() {
+    let { tempVideoPanel, tempBackDrop } = this.renderAddVideoPanel();
+
+    return (
+      <div className="App" style={{ style: "100%" }}>
+        <Header onAddVideoClicked={this.addVideoButtonPressedHandler} />
+        <ChatBox onMessageEntered={this.handleOnSubmit} />
+        {tempVideoPanel}
+        {tempBackDrop}
+      </div>
+    );
   }
 }
 
