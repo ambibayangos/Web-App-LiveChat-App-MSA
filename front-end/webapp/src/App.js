@@ -4,10 +4,13 @@ import Header from "./components/Header/header";
 import AddVideoPanel from "./components/AddVideoPanel/addVideoPanel";
 import BackDrop from "./components/BackDrop/backDrop";
 import ChatBox from "./components/ChatBox/chatBox";
+import GetUserName from "./components/GetUserName/getUserName";
 
 class App extends Component {
   state = {
-    addVideoButtonPressed: false
+    addVideoButtonPressed: false,
+    userIsReady: true,
+    userName: "annonymous"
   };
 
   /*Events Handlers && Helper Functions*/
@@ -15,6 +18,11 @@ class App extends Component {
   addVideoButtonPressedHandler = () => {
     const tempVdeioButton = this.state.addVideoButtonPressed;
     this.setState({ addVideoButtonPressed: !tempVdeioButton });
+  };
+
+  closeGetUSerPanel = user => {
+    const tempGetUserPanel = this.state.userIsReady;
+    this.setState({ userIsReady: !tempGetUserPanel, userName: user });
   };
 
   renderAddVideoPanel() {
@@ -31,13 +39,28 @@ class App extends Component {
     return { tempVideoPanel, tempBackDrop };
   }
 
+  renderGetUserName() {
+    let tempGetUserPanel;
+    if (this.state.userIsReady) {
+      tempGetUserPanel = (
+        <GetUserName onSubmintEntered={this.closeGetUSerPanel} />
+      );
+    }
+    return tempGetUserPanel;
+  }
+
   render() {
     let { tempVideoPanel, tempBackDrop } = this.renderAddVideoPanel();
+    let tempGetUserPanel = this.renderGetUserName();
 
     return (
       <div className="App" style={{ style: "100%" }}>
+        {tempGetUserPanel}
         <Header onAddVideoClicked={this.addVideoButtonPressedHandler} />
-        <ChatBox onMessageEntered={this.handleOnSubmit} />
+        <ChatBox
+          onMessageEntered={this.handleOnSubmit}
+          userName={this.state.userName}
+        />
         {tempVideoPanel}
         {tempBackDrop}
       </div>

@@ -18,9 +18,11 @@ class ChatBox extends Component {
     return (
       <div className="chatBox">
         <div>
-          {this.state.messageList.slice(-17).map(message => (
-            <ul style={{ color: "white" }}>
-              <h3 style={{ fontSize: "1.2rem" }}>User Name: </h3>
+          {this.state.messageList.slice(-11).map(message => (
+            <ul style={{ color: "white", fontSize: "1rem" }}>
+              <span style={{ fontSize: "1rem" }}>
+                {this.props.userName + " : "}
+              </span>
               {message}
             </ul>
           ))}
@@ -32,7 +34,6 @@ class ChatBox extends Component {
               <input
                 type="text"
                 placeholder="Enter a message...."
-                name="Inital Message"
                 onChange={event =>
                   this.setState({ message: event.target.value })
                 }

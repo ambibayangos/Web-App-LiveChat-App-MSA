@@ -3,7 +3,7 @@ import "semantic-ui-css/semantic.min.css";
 import { Form } from "semantic-ui-react";
 
 class AddVideoForm extends Component {
-  state = {};
+  state = { userName: "" };
   render() {
     return (
       <div>
