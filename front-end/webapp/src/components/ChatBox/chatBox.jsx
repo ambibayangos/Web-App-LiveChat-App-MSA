@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import "./chatBox.css";
 import "semantic-ui-css/semantic.min.css";
 import { Form } from "semantic-ui-react";
-import { HubConnection } from "@aspnet/signalr-client";
+import * as signalR from "@aspnet/signalr";
+
+//import { HubConnection } from "@aspnet/signalr-client";
 
 class ChatBox extends Component {
   state = { message: "", messageList: [], hubConnection: null };
@@ -15,9 +17,10 @@ class ChatBox extends Component {
     });
   };
 
-  componentDidMount() {
-    const hubConnection = new HubConnection("http://localhost:5000/ChatHub");
-    this.setState({ hubConnection: hubConnection });
+  componentDidMount = () => {
+    const hubConnection = new signalR.HubConnectionBuilder()
+      .withUrl("https://localhost:44314/ChatHub")
+      .build();
 
     this.setState({ hubConnection }, () => {
       this.state.hubConnection
@@ -25,7 +28,7 @@ class ChatBox extends Component {
         .then(() => console.log("Connection started!"))
         .catch(err => console.log("Error while establishing connection :("));
     });
-  }
+  };
 
   render() {
     return (

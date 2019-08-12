@@ -45,6 +45,8 @@ class App extends Component {
       tempGetUserPanel = (
         <GetUserName onSubmintEntered={this.closeGetUSerPanel} />
       );
+    } else {
+      tempGetUserPanel = null;
     }
     return tempGetUserPanel;
   }
