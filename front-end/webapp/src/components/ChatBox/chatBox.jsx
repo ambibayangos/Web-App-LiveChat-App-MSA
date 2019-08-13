@@ -22,20 +22,9 @@ class ChatBox extends Component {
       this.state.message
     );
     document.getElementById("message").reset();
-    /* this.setState({
-      message: "",
-      messageList: [...this.state.messageList, this.state.message]
-    });
-
-    */
   };
 
   componentDidMount = () => {
-    /*this.state.hubConnection.on("LogMessage", () => {
-      alert("Hi");
-    });
-    */
-
     this.state.hubConnection.on("ReceiveMessage", (user, message) => {
       this.setState({ messageList: [...this.state.messageList, message] });
     });
