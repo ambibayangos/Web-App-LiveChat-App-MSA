@@ -16,11 +16,9 @@ class ChatBox extends Component {
   };
 
   onSubmitHandler = event => {
-    this.state.hubConnection.invoke(
-      "SendMessage",
-      this.props.userName,
-      this.state.message
-    );
+    this.state.hubConnection
+      .invoke("SendMessage", this.props.userName, this.state.message)
+      .catch(err => console.log(err));
     document.getElementById("message").reset();
   };
 

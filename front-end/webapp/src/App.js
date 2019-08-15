@@ -5,6 +5,9 @@ import AddVideoPanel from "./components/AddVideoPanel/addVideoPanel";
 import BackDrop from "./components/BackDrop/backDrop";
 import ChatBox from "./components/ChatBox/chatBox";
 import GetUserName from "./components/GetUserName/getUserName";
+import VideoTable from "./components/VideoTable/videoTable";
+
+import ReactPlayer from "react-player";
 
 class App extends Component {
   state = {
@@ -65,6 +68,30 @@ class App extends Component {
         />
         {tempVideoPanel}
         {tempBackDrop}
+        <VideoTable />
+
+        <div
+          style={{
+            top: "100px",
+            left: "20px",
+            position: "fixed",
+            width: "950px",
+            height: "60%",
+            background: "orange",
+            borderRadius: "5px"
+          }}
+        >
+          <div>
+            <ReactPlayer
+              url="https://www.youtube.com/watch?v=XOdxawBFtno"
+              width="100%"
+              height="80%"
+              style={{ position: "absolute", shadow: "10px" }}
+            />
+          </div>
+
+          <h1 style={{ position: "absolute", bottom: "0" }}>Youtube title</h1>
+        </div>
       </div>
     );
   }

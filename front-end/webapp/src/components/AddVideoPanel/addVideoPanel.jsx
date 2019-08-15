@@ -6,7 +6,7 @@ class AddVideoPanel extends Component {
   state = {};
   render() {
     return (
-      <div className="container">
+      <div className="add-video-panel">
         <h3>Add Video</h3>
         <div className="space">
           <AddVideoForm label={"YouTubeLink"} placeHolder={"Enter link here"} />

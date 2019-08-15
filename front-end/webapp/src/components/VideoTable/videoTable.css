@@ -1,0 +1,10 @@
+.video-table {
+  height: 200px;
+  width: 90%;
+
+  bottom: 0;
+  left: 0;
+  position: fixed;
+
+  background: #333333;
+}
