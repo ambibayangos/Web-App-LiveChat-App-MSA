@@ -9,7 +9,7 @@ class GetUserName extends Component {
   render() {
     return (
       <div className="userName">
-        <div className="container">
+        <div className="getUserBox">
           <h2 style={{ color: "black" }}>Enter a user name</h2>
           <Form
             id="message"

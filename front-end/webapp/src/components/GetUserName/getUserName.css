@@ -9,11 +9,17 @@
   z-index: 300;
 }
 
-.container {
+.getUserBox {
   height: 200px;
   width: 500px;
+  position: absolute;
 
   left: 35%;
   top: 20%;
   background: whitesmoke;
+
+  padding-left: 1%;
+  padding-right: 1%;
+
+  border-radius: 5px;
 }
