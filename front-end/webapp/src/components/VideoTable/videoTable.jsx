@@ -1,9 +1,17 @@
 import React, { Component } from "react";
 import "./videoTable.css";
 import "semantic-ui-css/semantic.min.css";
+import * as signalR from "@aspnet/signalr";
 
 class VideoTable extends Component {
-  state = { videoTitles: [], videoThumbNail: [], videoURL: [] };
+  state = {
+    videoTitles: [],
+    videoThumbNail: [],
+    videoURL: [],
+    hubConnection: new signalR.HubConnectionBuilder()
+      .withUrl("https://localhost:44314/ChatHub")
+      .build()
+  };
 
   updateList = () => {
     fetch("https://livewebchat.azurewebsites.net/api/Videos", {
@@ -22,9 +30,9 @@ class VideoTable extends Component {
                 <i class="star outline icon" style={{ fontSize: "2rem" }} />
               </td>
               <td
-                onClick={() => {
-                  this.props.videoURL(video.webUrl, video.videoTitle);
-                }}
+                onClick={() =>
+                  this.props.videoURL(video.webUrl, video.videoTitle)
+                }
                 className="center"
                 style={{ paddingRight: "50px" }}
               >

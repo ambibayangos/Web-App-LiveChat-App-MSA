@@ -6,6 +6,7 @@ import BackDrop from "./components/BackDrop/backDrop";
 import ChatBox from "./components/ChatBox/chatBox";
 import GetUserName from "./components/GetUserName/getUserName";
 import VideoTable from "./components/VideoTable/videoTable";
+import * as signalR from "@aspnet/signalr";
 
 import ReactPlayer from "react-player";
 
@@ -16,13 +17,16 @@ class App extends Component {
     userName: "annonymous",
     updateVideoList: Object,
     playingVideoURL: "",
-    playingVideoTitle: ""
+    playingVideoTitle: "",
+    hubConnection: new signalR.HubConnectionBuilder()
+      .withUrl("https://localhost:44314/ChatHub")
+      .build()
   };
 
   /*Events Handlers && Helper Functions*/
 
   updataPlayingVideo = (URL, TITLE) => {
-    this.setState({ playingVideoURL: URL, playingVideoTitle: TITLE });
+    this.state.hubConnection.invoke("UpdatePlayingVideo", URL, TITLE);
   };
 
   listMounted = callBacks => {
@@ -107,6 +111,16 @@ class App extends Component {
       tempGetUserPanel = null;
     }
     return tempGetUserPanel;
+  }
+
+  componentDidMount() {
+    this.state.hubConnection
+      .start()
+      .then(() => this.state.hubConnection.invoke("BrodCast"));
+
+    this.state.hubConnection.on("Update", (URL, TITLE) => {
+      this.setState({ playingVideoURL: URL, playingVideoTitle: TITLE });
+    });
   }
 
   render() {
