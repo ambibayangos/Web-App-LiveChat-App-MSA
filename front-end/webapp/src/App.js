@@ -7,7 +7,6 @@ import ChatBox from "./components/ChatBox/chatBox";
 import GetUserName from "./components/GetUserName/getUserName";
 import VideoTable from "./components/VideoTable/videoTable";
 import * as signalR from "@aspnet/signalr";
-
 import ReactPlayer from "react-player";
 
 class App extends Component {
@@ -24,6 +23,11 @@ class App extends Component {
   };
 
   /*Events Handlers && Helper Functions*/
+
+  handleVideoDeletion = ID => {
+    /*Handle Video Deletion*/
+    this.state.hubConnection.invoke("DeleteVideo", ID);
+  };
 
   updataPlayingVideo = (URL, TITLE) => {
     this.state.hubConnection.invoke("UpdatePlayingVideo", URL, TITLE);
@@ -121,6 +125,12 @@ class App extends Component {
     this.state.hubConnection.on("Update", (URL, TITLE) => {
       this.setState({ playingVideoURL: URL, playingVideoTitle: TITLE });
     });
+
+    this.state.hubConnection.on("DELETE", ID => {
+      fetch("https://livewebchat.azurewebsites.net/api/Videos" + ID, {
+        method: "DELETE"
+      }).then(() => this.state.updateVideoList());
+    });
   }
 
   render() {
@@ -140,6 +150,7 @@ class App extends Component {
         <VideoTable
           mount={this.listMounted}
           videoURL={this.updataPlayingVideo}
+          deleteVideo={this.listMounted}
         />
 
         <div

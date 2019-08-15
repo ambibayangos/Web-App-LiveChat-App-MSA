@@ -41,6 +41,15 @@ class VideoTable extends Component {
               <td className="center" style={{ fontSize: "1rem" }}>
                 {video.videoTitle}
               </td>
+              <td
+                onClick={() => this.props.deleteVideo(video.videoId)}
+                className="center"
+              >
+                <i
+                  class="trash alternate outline icon"
+                  style={{ fontSize: "2rem" }}
+                />
+              </td>
             </tr>
           );
           output.push(row);
