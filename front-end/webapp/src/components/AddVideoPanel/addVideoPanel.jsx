@@ -1,27 +1,71 @@
 import React, { Component } from "react";
 import "./addVideoPanel.css";
 import AddVideoForm from "../Form/form";
+import "semantic-ui-css/semantic.min.css";
+import { Form } from "semantic-ui-react";
 
 class AddVideoPanel extends Component {
-  state = {};
+  state = {
+    videoLink: "",
+    player1Name: "",
+    player2Name: ""
+  };
+
+  onSaveHanlder = () => {
+    this.props.videoAdded(this.state.videoLink);
+    this.props.player1Added(this.state.player1Name);
+    this.props.player2Added(this.state.player2Name);
+    this.props.onSaveVideoCliked(null);
+  };
+
   render() {
     return (
       <div className="add-video-panel">
-        <h3>Add Video</h3>
+        <h3>Enter Video</h3>
         <div className="space">
-          <AddVideoForm label={"YouTubeLink"} placeHolder={"Enter link here"} />
+          <Form id="message" autoComplete="off">
+            <Form.Field>
+              <label>Youtube link</label>
+              <input
+                placeholder="Enter youTube link"
+                onChange={event =>
+                  this.setState({
+                    videoLink: event.target.value
+                  })
+                }
+              />
+            </Form.Field>
+          </Form>
         </div>
         <div className="space">
-          <AddVideoForm
-            label={"Player one"}
-            placeHolder={"Enter player one name"}
-          />
+          <Form id="message" autoComplete="off">
+            <Form.Field>
+              <label>Player one</label>
+              <input
+                placeholder="Enter player one name"
+                onChange={event =>
+                  this.setState({
+                    player1Name: event.target.value
+                  })
+                }
+              />
+            </Form.Field>
+          </Form>
         </div>
         <div className="space">
-          <AddVideoForm
-            label={"Player two"}
-            placeHolder={"Enter playe two name"}
-          />
+          <Form id="message" autoComplete="off">
+            <Form.Field>
+              <label>Player two</label>
+              <input
+                placeholder="Enter player two name"
+                onChange={event =>
+                  this.setState({
+                    player2Name: event.target.value
+                  })
+                }
+              />
+            </Form.Field>
+          </Form>
         </div>
         <div className="spacer" />
         <button
@@ -31,6 +75,7 @@ class AddVideoPanel extends Component {
           Cancel
         </button>
         <button
+          onClick={this.onSaveHanlder}
           className="ui positive basic button"
           style={{ margin: "10px  0px 0px 0px" }}
         >

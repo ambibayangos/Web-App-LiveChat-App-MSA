@@ -5,40 +5,6 @@ import "semantic-ui-css/semantic.min.css";
 class VideoTable extends Component {
   state = { videoTitles: [], videoThumbNail: [], videoURL: [] };
 
-  /*
-  getVideoInfo = () => {
-    fetch("https://livewebchat.azurewebsites.net/api/Videos", {
-      method: "GET"
-    })
-      .then(response => {
-        const res = response.json();
-        console.log(res);
-        return res;
-      })
-      .then(response => {
-        let tempVideoTitles = [];
-        let tempThumNail = [];
-        let tempVideoURL = [];
-        response.map(video => {
-          tempVideoTitles = [...this.state.videoTitles, video.videoTitle];
-          tempThumNail = [...this.state.videoThumbNail, video.thumbnailUrl];
-          tempVideoURL = [...this.state.videoURL, video.webUrl];
-          this.setState({
-            videoTitles: tempVideoTitles,
-            videoThumbNail: tempThumNail,
-            videoURL: tempVideoURL
-          });
-        });
-      });
-    console.log(this.state.videoTitles);
-  };
-
-  async componentDidMount() {
-    this.getVideoInfo();
-  }
-
-  */
-
   updateList = () => {
     fetch("https://livewebchat.azurewebsites.net/api/Videos", {
       method: "GET"
@@ -47,17 +13,26 @@ class VideoTable extends Component {
         return response.json();
       })
       .then(reponse => {
+        console.log(reponse);
         const output = [];
         reponse.forEach(video => {
           const row = (
-            <tr>
-              <td>
-                <i class="star outline icon" />
+            <tr style={{ width: "100%" }}>
+              <td className="center">
+                <i class="star outline icon" style={{ fontSize: "2rem" }} />
               </td>
-              <td>
-                <img src={video.thumbnailUrl} width="100px" />}
+              <td
+                onClick={() => {
+                  this.props.videoURL(video.webUrl, video.videoTitle);
+                }}
+                className="center"
+                style={{ paddingRight: "50px" }}
+              >
+                <img src={video.thumbnailUrl} width="200px" />}
               </td>
-              <td>{video.videoTitle}</td>
+              <td className="center" style={{ fontSize: "1rem" }}>
+                {video.videoTitle}
+              </td>
             </tr>
           );
           output.push(row);
@@ -68,12 +43,13 @@ class VideoTable extends Component {
 
   componentDidMount() {
     this.updateList();
+    this.props.mount(this.updateList);
   }
 
   render() {
     return (
       <div className="video-table">
-        <div className="scroll">{this.state.videoThumbNail}</div>
+        <div>{this.state.videoThumbNail}</div>
       </div>
     );
   }
