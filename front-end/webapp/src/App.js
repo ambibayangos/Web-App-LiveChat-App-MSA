@@ -18,7 +18,7 @@ class App extends Component {
     playingVideoURL: "",
     playingVideoTitle: "",
     hubConnection: new signalR.HubConnectionBuilder()
-      .withUrl("https://localhost:44314/ChatHub")
+      .withUrl("https://sigalr-live-chat.azurewebsites.net/ChatHub")
       .build()
   };
 
@@ -27,7 +27,7 @@ class App extends Component {
   updataPlayingVideo = (URL, TITLE) => {
     this.state.hubConnection
       .invoke("UpdatePlayingVideo", URL, TITLE)
-      .catch(err => console.log(err));
+      .catch(err => console.log);
   };
 
   listMounted = callBacks => {

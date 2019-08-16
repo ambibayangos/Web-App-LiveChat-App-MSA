@@ -11,7 +11,7 @@ class ChatBox extends Component {
     message: "",
     messageList: [],
     hubConnection: new signalR.HubConnectionBuilder()
-      .withUrl("https://localhost:44314/ChatHub")
+      .withUrl("https://sigalr-live-chat.azurewebsites.net/ChatHub")
       .build()
   };
 
