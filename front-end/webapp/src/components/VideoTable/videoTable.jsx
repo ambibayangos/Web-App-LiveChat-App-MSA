@@ -14,7 +14,9 @@ class VideoTable extends Component {
   };
 
   handleLike = (ID, Fav) => {
-    this.state.hubConnection.invoke("UpdateFav", ID, Fav);
+    this.state.hubConnection
+      .invoke("UpdateFav", ID, Fav)
+      .catch(err => console.log(err));
   };
 
   deleteVideo = ID => {

@@ -25,7 +25,9 @@ class App extends Component {
   /*Events Handlers && Helper Functions*/
 
   updataPlayingVideo = (URL, TITLE) => {
-    this.state.hubConnection.invoke("UpdatePlayingVideo", URL, TITLE);
+    this.state.hubConnection
+      .invoke("UpdatePlayingVideo", URL, TITLE)
+      .catch(err => console.log(err));
   };
 
   listMounted = callBacks => {
