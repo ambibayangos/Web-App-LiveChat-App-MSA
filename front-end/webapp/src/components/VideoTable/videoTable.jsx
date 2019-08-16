@@ -73,7 +73,7 @@ class VideoTable extends Component {
                   paddingTop: "10px"
                 }}
               >
-                <img src={video.thumbnailUrl} width="200px" />
+                <img src={video.thumbnailUrl} width="150px" />
               </td>
               <td
                 onClick={() =>
@@ -81,7 +81,7 @@ class VideoTable extends Component {
                 }
                 className="center"
                 style={{
-                  fontSize: "1.2rem",
+                  fontSize: "0.9rem",
                   color: "White",
                   paddingRight: "20px"
                 }}

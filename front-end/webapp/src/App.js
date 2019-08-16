@@ -144,9 +144,9 @@ class App extends Component {
         <div
           style={{
             top: "100px",
-            left: "20px",
+            left: "100px" /*20px*/,
             position: "fixed",
-            width: "950px",
+            width: "800px", //950px
             height: "55%",
             background: "FloralWhite",
             borderRadius: "5px"
