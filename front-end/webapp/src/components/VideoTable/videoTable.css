@@ -13,10 +13,22 @@
   border-radius: 2px;
 
   overflow-y: scroll;
+
+  cursor: pointer;
 }
 
 .center {
   display: table-cell;
   vertical-align: middle;
   text-align: center;
+
+  width: 500px;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.icon:hover {
+  opacity: 0.5 !important;
 }

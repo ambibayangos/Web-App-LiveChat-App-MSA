@@ -13,6 +13,31 @@ class VideoTable extends Component {
       .build()
   };
 
+  handleLike = video => {
+    const toSend = [
+      {
+        from: "",
+        op: "replace",
+        path: "/isFavourite",
+        value: !video.isFavourite
+      }
+    ];
+    fetch(
+      "https://livewebchat.azurewebsites.net/api/Videos/update/" +
+        video.videoId,
+      {
+        body: JSON.stringify(toSend),
+        headers: {
+          Accept: "text/plain",
+          "Content-Type": "application/json-patch+json"
+        },
+        method: "PATCH"
+      }
+    ).then(() => {
+      this.updateList();
+    });
+  };
+
   deleteVideo = ID => {
     this.state.hubConnection
       .invoke("DeleteVideo", ID)
@@ -32,15 +57,26 @@ class VideoTable extends Component {
         reponse.forEach(video => {
           const row = (
             <tr style={{ width: "100%" }}>
-              <td className="center">
-                <i
-                  class="star outline icon"
-                  style={{
-                    fontSize: "2rem",
-                    color: "White",
-                    paddingLeft: "20px"
-                  }}
-                />
+              <td onClick={() => this.handleLike(video)} className="center">
+                {video.isFavourite === "true" ? (
+                  <i
+                    class="star outline icon"
+                    style={{
+                      fontSize: "2rem",
+                      color: "White",
+                      paddingLeft: "20px"
+                    }}
+                  />
+                ) : (
+                  <i
+                    class="star icon"
+                    style={{
+                      color: "White",
+                      fontSize: "2rem",
+                      paddingLeft: "20px"
+                    }}
+                  />
+                )}
               </td>
               <td
                 onClick={() =>
@@ -56,6 +92,9 @@ class VideoTable extends Component {
                 <img src={video.thumbnailUrl} width="200px" />
               </td>
               <td
+                onClick={() =>
+                  this.props.videoURL(video.webUrl, video.videoTitle)
+                }
                 className="center"
                 style={{
                   fontSize: "1.2rem",
@@ -81,7 +120,12 @@ class VideoTable extends Component {
               </td>
             </tr>
           );
-          output.push(row);
+
+          if (video.isFavourite) {
+            output.unshift(row);
+          } else {
+            output.push(row);
+          }
         });
         this.setState({ videoThumbNail: output });
       });
