@@ -24,11 +24,6 @@ class App extends Component {
 
   /*Events Handlers && Helper Functions*/
 
-  handleVideoDeletion = ID => {
-    /*Handle Video Deletion*/
-    this.state.hubConnection.invoke("DeleteVideo", ID);
-  };
-
   updataPlayingVideo = (URL, TITLE) => {
     this.state.hubConnection.invoke("UpdatePlayingVideo", URL, TITLE);
   };
@@ -125,12 +120,6 @@ class App extends Component {
     this.state.hubConnection.on("Update", (URL, TITLE) => {
       this.setState({ playingVideoURL: URL, playingVideoTitle: TITLE });
     });
-
-    this.state.hubConnection.on("DELETE", ID => {
-      fetch("https://livewebchat.azurewebsites.net/api/Videos" + ID, {
-        method: "DELETE"
-      }).then(() => this.state.updateVideoList());
-    });
   }
 
   render() {
@@ -150,7 +139,6 @@ class App extends Component {
         <VideoTable
           mount={this.listMounted}
           videoURL={this.updataPlayingVideo}
-          deleteVideo={this.listMounted}
         />
 
         <div
@@ -166,15 +154,28 @@ class App extends Component {
         >
           <div>
             <ReactPlayer
-              url={this.state.playingVideoURL}
+              url={
+                this.state.playingVideoURL === ""
+                  ? "https://www.youtube.com/watch?v=wVMPqFb5Iy8"
+                  : this.state.playingVideoURL
+              }
               width="100%"
               height="85%"
               style={{ position: "absolute", shadow: "10px" }}
             />
           </div>
 
-          <h1 style={{ position: "absolute", bottom: "20px", left: "20px" }}>
-            {this.state.playingVideoTitle}
+          <h1
+            style={{
+              position: "absolute",
+              bottom: "20px",
+              left: "20px",
+              fontSize: "1rem"
+            }}
+          >
+            {this.state.playingVideoTitle === ""
+              ? "Aimer is good"
+              : this.state.playingVideoTitle}
           </h1>
         </div>
       </div>
