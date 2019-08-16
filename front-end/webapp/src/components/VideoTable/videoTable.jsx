@@ -13,29 +13,8 @@ class VideoTable extends Component {
       .build()
   };
 
-  handleLike = video => {
-    const toSend = [
-      {
-        from: "",
-        op: "replace",
-        path: "/isFavourite",
-        value: !video.isFavourite
-      }
-    ];
-    fetch(
-      "https://livewebchat.azurewebsites.net/api/Videos/update/" +
-        video.videoId,
-      {
-        body: JSON.stringify(toSend),
-        headers: {
-          Accept: "text/plain",
-          "Content-Type": "application/json-patch+json"
-        },
-        method: "PATCH"
-      }
-    ).then(() => {
-      this.updateList();
-    });
+  handleLike = (ID, Fav) => {
+    this.state.hubConnection.invoke("UpdateFav", ID, Fav);
   };
 
   deleteVideo = ID => {
@@ -57,7 +36,12 @@ class VideoTable extends Component {
         reponse.forEach(video => {
           const row = (
             <tr style={{ width: "100%" }}>
-              <td onClick={() => this.handleLike(video)} className="center">
+              <td
+                onClick={() =>
+                  this.handleLike(video.videoId, video.isFavourite)
+                }
+                className="center"
+              >
                 {video.isFavourite === "true" ? (
                   <i
                     class="star outline icon"
@@ -138,12 +122,34 @@ class VideoTable extends Component {
 
     this.updateList();
     this.props.mount(this.updateList);
+
     this.state.hubConnection.on("DELETE", ID => {
       fetch("https://livewebchat.azurewebsites.net/api/Videos/" + ID, {
         method: "DELETE"
       }).then(() => {
         this.updateList(null);
         this.setState({ videoTitles: [] });
+      });
+    });
+
+    this.state.hubConnection.on("LIKE", (ID, Fav) => {
+      const toSend = [
+        {
+          from: "",
+          op: "replace",
+          path: "/isFavourite",
+          value: !Fav
+        }
+      ];
+      fetch("https://livewebchat.azurewebsites.net/api/Videos/update/" + ID, {
+        body: JSON.stringify(toSend),
+        headers: {
+          Accept: "text/plain",
+          "Content-Type": "application/json-patch+json"
+        },
+        method: "PATCH"
+      }).then(() => {
+        this.updateList();
       });
     });
   }
