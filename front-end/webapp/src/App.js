@@ -18,7 +18,7 @@ class App extends Component {
     playingVideoURL: "",
     playingVideoTitle: "",
     hubConnection: new signalR.HubConnectionBuilder()
-      .withUrl("https://sigalr-live-chat.azurewebsites.net/ChatHub")
+      .withUrl("https://localhost:44314/ChatHub")
       .build()
   };
 
@@ -35,17 +35,7 @@ class App extends Component {
   };
 
   addVideoHandler = URL => {
-    const body = { url: URL };
-    fetch("https://livewebchat.azurewebsites.net/api/Videos", {
-      body: JSON.stringify(body),
-      headers: {
-        Accept: "Text/Plain",
-        "Content-Type": "application/json"
-      },
-      method: "POST"
-    }).then(() => {
-      this.state.updateVideoList();
-    });
+    this.state.hubConnection.invoke("Table", URL);
   };
 
   addPlayer1Handler = name => {
@@ -122,6 +112,21 @@ class App extends Component {
     this.state.hubConnection.on("Update", (URL, TITLE) => {
       this.setState({ playingVideoURL: URL, playingVideoTitle: TITLE });
     });
+
+    this.state.hubConnection.on("refreshTable", URL => {
+      /* refresh table*/
+      const body = { url: URL };
+      fetch("https://livewebchat.azurewebsites.net/api/Videos", {
+        body: JSON.stringify(body),
+        headers: {
+          Accept: "Text/Plain",
+          "Content-Type": "application/json"
+        },
+        method: "POST"
+      }).then(() => {
+        this.state.updateVideoList();
+      });
+    });
   }
 
   render() {
@@ -176,7 +181,7 @@ class App extends Component {
             }}
           >
             {this.state.playingVideoTitle === ""
-              ? "Aimer is good"
+              ? "Aimer 『STAND-ALONE』"
               : this.state.playingVideoTitle}
           </h1>
         </div>
